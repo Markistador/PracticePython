@@ -398,6 +398,7 @@ def gameWon(revealedBoxes, mineField):
 
 
 def gameOverAnimation(mineField, revealedBoxes, markedMines, result):
+  
 
     origSurf = DISPLAYSURFACE.copy()
     flashSurf = pygame.Surface(DISPLAYSURFACE.get_size())
@@ -406,31 +407,29 @@ def gameOverAnimation(mineField, revealedBoxes, markedMines, result):
 
     if result == 'WIN':
         r, g, b = BLUE
-        DISPLAYSURFACE.fill(BLUE)
     else:
         r, g, b = RED
-        DISPLAYSURFACE.fill(RED)
- #   for i in range(5):
-  #      for start, end, step in ((0, 255, 1), (255, 0, -1)):
-   #         for alpha in range(start, end, animationSpeed * step):  # animation loop
-    ##           flashSurf.fill((r, g, b, alpha))
-      #          DISPLAYSURFACE.blit(origSurf, (0, 0))
-       #         DISPLAYSURFACE.blit(flashSurf, (0, 0))
-        ##       XMARGIN - 5, YMARGIN - 5, (BOXSIZE + GAPSIZE) * FIELDWIDTH + 5, (BOXSIZE + GAPSIZE) * FIELDHEIGHT + 5))
-          #      drawField()
-           #     drawMinesNumbers(mineField)
-            #    tipFont = pygame.font.SysFont(FONTTYPE, 16)  ## not using BASICFONT - too big
-             #   #drawText('Tip: Highlight a box and press space (rather than click the mouse)', tipFont, TEXTCOLOR_3,
-              #       #    DISPLAYSURFACE, WINDOWWIDTH / 2, WINDOWHEIGHT - 60)
-               ## drawText('to mark areas that you think contain mines.', tipFont, TEXTCOLOR_3, DISPLAYSURFACE,
-                #        # WINDOWWIDTH / 2, WINDOWHEIGHT - 40)
-                #RESET_SURF, RESET_RECT = drawButton('RESET', TEXTCOLOR_3, RESETBGCOLOR, WINDOWWIDTH / 2,
+
+    for i in range(5):
+        for start, end, step in ((0, 255, 1), (255, 0, -1)):
+            for alpha in range(start, end, animationSpeed * step):  # animation loop
+                checkForKeyPress()
+                flashSurf.fill((r, g, b, alpha))
+                DISPLAYSURFACE.blit(origSurf, (0, 0))
+                DISPLAYSURFACE.blit(flashSurf, (0, 0))
+                pygame.draw.rect(DISPLAYSURFACE, FIELDCOLOR, (
+                XMARGIN - 5, YMARGIN - 5, (BOXSIZE + GAPSIZE) * FIELDWIDTH + 5, (BOXSIZE + GAPSIZE) * FIELDHEIGHT + 5))
+                drawField()
+                drawMinesNumbers(mineField)
+                tipFont = pygame.font.SysFont(FONTTYPE, 16)  ## not using BASICFONT - too big
+             
+                RESET_SURF, RESET_RECT = drawButton('RESET', TEXTCOLOR_3, RESETBGCOLOR, WINDOWWIDTH / 2,
                                                     WINDOWHEIGHT - 120)
-            #    SHOW_SURF, SHOW_RECT = drawButton('SHOW ALL', TEXTCOLOR_3, RESETBGCOLOR, WINDOWWIDTH / 2,
+                SHOW_SURF, SHOW_RECT = drawButton('SHOW ALL', TEXTCOLOR_3, RESETBGCOLOR, WINDOWWIDTH / 2,
                                                   WINDOWHEIGHT - 95)
-             #   drawCovers(revealedBoxes, markedMines)
-              #  pygame.display.update()
-               # FPSCLOCK.tick(FPS)
+                drawCovers(revealedBoxes, markedMines)
+                pygame.display.update()
+                FPSCLOCK.tick(FPS)
 
 
 def terminate():
